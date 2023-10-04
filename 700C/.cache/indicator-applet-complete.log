@@ -1,0 +1,8 @@
+Binding '<Super>S' failed!
+
+Signal: Entry Added
+gtk_distribute_natural_allocation: assertion 'extra_space >= 0' failed
+Request current apps
+Signal: Entry Added
+Signal: Entry Added
+Building new application entry: :1.43  with icon: nm-signal-100 at position 0

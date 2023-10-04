@@ -1,0 +1,2 @@
+aelos_race_demo/robot_demo:ar_track_alvar/ar_track_alvar:ar_track_alvar/ar_track_alvar_msgs:web_video_server
+-DCATKIN_DEVEL_PREFIX=/home/lemon/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/lemon/catkin_ws/install -G Unix Makefiles
