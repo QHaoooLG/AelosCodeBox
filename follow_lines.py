@@ -1,18 +1,12 @@
-import cv2
 import numpy as np
-import time
-import CMDcontrol
-import rospy
-import tf
-import time
-import threading
+import cv2
 import math
-from math import sqrt
-from geometry_msgs.msg import PoseWithCovarianceStamped
-from ar_track_alvar_msgs.msg import AlvarMarkers
-from ar_track_alvar_msgs.msg import AlvarMarker
-from kickBallOnly import kick_ball
-from startDoorOnly import start_door
+import threading
+import time
+import datetime
+import rospy
+import CMDcontrol
+
 
 def Nothing(x):
     pass
@@ -20,18 +14,19 @@ def Nothing(x):
 cv2.namedWindow("frame_gray")
 cv2.createTrackbar("threshold", "frame_gray", 0, 255, Nothing)
 
+
 def action(act_name):
     print(f'执行动作: {act_name}')
     time.sleep(1)
     CMDcontrol.action_append(act_name) 
 
+
 # 调用摄像头
-cap = cv2.VideoCapture(0)
+cap=cv2.VideoCapture("http://192.168.43.218:8080/usb_cam_chest/image_raw")
 cap.set(3, 640)
 cap.set(4, 480)
 while True:
-    success, frame = cap.read()
-    # frame = cv2.resize(frame, [640,480])
+    frame=cap.read()
     img_ROI = frame[133:320, 93:333]
     cv2.imshow("img",frame)
 
@@ -74,22 +69,23 @@ while True:
 
     # 动作执行
     if distance_x > 50:
-        time.sleep(0.5)
-        print("左转")
         action("turn004L")
-        time.sleep(0.5)
-        print("走2步")
+        print("左转")
+        time.sleep(1)
         action("Forwalk02RS")
-        
+        print("走2步")
+        time.sleep(1)
     if distance_x < -50:
-        time.sleep(0.5)
-        print("右转")
         action("turn004R")
-        time.sleep(0.5)
-        print("走2步")
+        print("右转")
+        time.sleep(1)
         action("Forwalk02RS")
+        print("走2步")
+        time.sleep(1)
     else:
-        print("走2步")
         action("Forwalk02RS")
+        print("走2步")
+        time.sleep(1)
 
-    cv2.waitKey(100)
+cap.release()
+cv2.destroyAllWindows()
